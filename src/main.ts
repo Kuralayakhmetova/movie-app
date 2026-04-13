@@ -12,7 +12,8 @@ async function bootstrap() {
 app.use(cookieParser());
 
  app.enableCors({
-   origin: 'http://localhost:3001', // адрес Next.js
+   origin: [process.env.FRONTEND_URL|| 'http://localhost:3000', 'http://localhost:3001',
+    'https://moviefront-woad.vercel.app'], // адрес Vercel
    credentials: true, // ОБЯЗАТЕЛЬНО — иначе cookies не работают
  });
 
