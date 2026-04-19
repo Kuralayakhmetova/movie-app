@@ -15,14 +15,21 @@ app.use(cookieParser());
 
 
  const allowedOrigins = [process.env.FRONTEND_URL || 'http://localhost:3001', 
-  'https://moviefront-woad.vercel.app'
+ 
   ].filter(Boolean);
 
   app.enableCors({
-    origin: allowedOrigins,
+origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+  if (!origin || allowedOrigins.includes(origin)) {
+    callback(null, true);
+  } else {
+    callback(new Error('Not allowed by CORS'));
+  }
+},
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
-
 
 
   app.useGlobalPipes(
