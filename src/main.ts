@@ -4,6 +4,7 @@ import { AppModule } from './app.module';
 import { setupSwagger } from './utils/swagger.util';
 import { DocumentBuilder } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
+import { filter } from 'rxjs/internal/operators/filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -11,11 +12,16 @@ async function bootstrap() {
 
 app.use(cookieParser());
 
- app.enableCors({
-   origin: [process.env.FRONTEND_URL|| 'http://localhost:3000', 'http://localhost:3001',
-    'https://moviefront-woad.vercel.app'], // адрес Vercel
-   credentials: true, // ОБЯЗАТЕЛЬНО — иначе cookies не работают
- });
+
+
+ const allowedOrigins = [process.env.FRONTEND_URL || 'http://localhost:3001', 
+  'https://moviefront-woad.vercel.app'
+  ].filter(Boolean);
+
+  app.enableCors({
+    origin: allowedOrigins,
+    credentials: true,
+  });
 
 
 
