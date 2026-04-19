@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import path from 'path';
 import fs from 'fs';
-import { Multer } from 'multer';
+import multer from 'multer';
 
 
 @Injectable()
