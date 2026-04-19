@@ -9,6 +9,7 @@ import {
 import { FileService } from './file.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Public } from 'src/auth/decorators/public.decorator';
+import { Multer } from 'multer';
 
 
 @Controller('file')
